@@ -5,11 +5,13 @@ import { GithubContext } from "./githubContex"
 import { githubReducer } from "./githubReducer"
 
 const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
-const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET 
 
 const withCreads = url => {
     return `${url}client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
 }
+
+// console.log(CLIENT_ID, 'asd', CLIENT_SECRET)
 
 export const GithubState = ({children}) => {
     const initialState = {
@@ -37,8 +39,10 @@ export const GithubState = ({children}) => {
         setLoading()
 
         const response = await axios.get(
-            withCreads(`https://api.github.com/users/users/${name}?`)
+            withCreads(`https://api.github.com/users/${name}?`)
         )
+
+        console.log('name', name)
 
         dispatch({
             type: GET_USER,
@@ -50,7 +54,7 @@ export const GithubState = ({children}) => {
         setLoading()
 
         const response = await axios.get(
-            withCreads(`https://api.github.com/users/users/${name}/repos?per_page=5&`)
+            withCreads(`https://api.github.com/users/${name}/repos?per_page=5&`)
         )
 
         dispatch({
